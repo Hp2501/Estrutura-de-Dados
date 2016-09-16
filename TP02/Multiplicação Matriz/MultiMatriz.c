@@ -1,59 +1,81 @@
 #include <stdio.h>
 #include <stdlib.h>
-int soma, int i, int linha, int coluna, int diml1, int diml2, int dimc1, int dimc2;
-void iniciarMatriz(int linha, int coluna, int diml1, int diml2, int dimc1, int dimc2)
-{
-    for(linha=0;linha<diml1;linha++)
-        for(coluna=0;coluna<dimc1;coluna++)
-    {
-        printf("Elemento[%d][%d]\n", linha+1, coluna+1);
-        scanf("%d", *mat1[linha][coluna]);
-    }
-
-    for(linha=0;linha<diml2;linha++)
-        for(coluna=0;coluna<dimc2;coluna++)
-    {
-        printf("Elemento[%d][%d]\n", linha+1, coluna+1);
-        scanf("%d", *mat1[linha][coluna]);
-    }
-}
-
-void checarMatriz(int diml2, int dimc1)
-{
-    if(dimc1!=diml2)
-    {
-        printf("Matriz imcompativel\n");
-    }
-    else
-    {
-        iniciarMatriz(mat1, mat2, int linha, int coluna, int diml1, int diml2, int dimc1, int dimc2);
-    }
-}
-
-int produtoMatriz(mat1, mat2, mf, int soma, int i, int linha, int coluna, int diml1, int diml2, int dimc1, int dimc2)
-{
-    mf = malloc(sizeof(int) * dimc1 * diml2)
-    for (linha=0;linha<diml1;linha++)
-        for (coluna=0;linha<dimc2;coluna++)
-    {
-        soma=0;
-        for (i=0;i<diml1;i++)
-        {
-            soma += mat1[linha][i]*mat2[i][coluna];
-            *mf[linha][coluna]=soma
-        }
-
-    }
-}
+int iniciarMatriz(int l, int c, int **mat);
+int produtoMatriz(int l, int c, int **matA, int **matB, int **matC);
+int imprimeMatriz(int l, int c, int **mat);
 
 int main()
 {
-    int soma, int i, int linha, int coluna, int diml1, int diml2, int dimc1, int dimc2
-    printf("\nDigite a quantidade de linhas da primeira matriz: ");scanf("%d", &diml1);
-    printf("\nDigite a quantidade de colunas da primeira matriz: ");scanf("%d", &dimc1);
-    printf("\nDigite a quantidade de linhas da segunda matriz: ");scanf("%d", &diml2);
-    printf("\nDigite a quantidade de colunas da segunda matriz: ");scanf("%d", &dimc2);
+    int **matA, **matB, **matC, l1, c1, l2, c2, i;
 
-    checarMatriz(diml1, diml2);
 
+    inicio:
+    printf("\nDigite a quantidade de linhas da primeira matriz: ");scanf("%d", &l1);
+    printf("\nDigite a quantidade de colunas da primeira matriz: ");scanf("%d", &c1);
+    printf("\nDigite a quantidade de linhas da segunda matriz: ");scanf("%d", &l2);
+    printf("\nDigite a quantidade de colunas da segunda matriz: ");scanf("%d", &c2);
+        if (c1!=l2)
+        {
+            printf("\nERRO!! MATRIZES IMCOMPATIVEIS PARA MULTIPLICACAO");
+            goto inicio;
+        }
+
+        matA = (int **)malloc(sizeof(int)*l1);
+    for (i = 0; i < l1; i++)
+        matA[i] = (int *)malloc(sizeof(int)*c1);
+
+    matB = (int **)malloc(sizeof(int)*l2);
+    for (i = 0; i < l2; i++)
+        matB[i] = (int *)malloc(sizeof(int)*c2);
+
+    matC = (int **)malloc(sizeof(int)*l2);
+    for (i = 0; i < l2; i++)
+        matC[i] = (int *)malloc(sizeof(int)*c1);
+
+    iniciarMatriz(l1, c1, matA);
+    imprimeMatriz(l1, c1, matA);
+    iniciarMatriz(l2, c2, matB);
+    imprimeMatriz(l2, c2, matB);
+    produtoMatriz(l2, c1, matA, matB, matC);
+    imprimeMatriz(l2, c1, matC);
+}
+
+int imprimeMatriz(int l, int c, int **mat)
+{
+    int i, j;
+    for(i=0;i<l;i++)
+    {
+        for(j=0;j<c;j++)
+    {
+        printf("%d\t", mat[i][j]);
+
+    }
+    printf("\n");
+    }
+    printf("\n");
+}
+
+int iniciarMatriz(int l, int c, int **mat)
+{
+    int i, j;
+    for(i=0;i<l;i++)
+        for(j=0;j<c;j++)
+    {
+        printf("\nElemento[%d][%d]: ", i+1, j+1);scanf("%d", &mat[i][j]);
+    }
+}
+
+int produtoMatriz(int l, int c, int **matA, int **matB, int **matC)
+{
+    int i, j, k;
+
+    for (i=0;i<l;i++)
+    {
+        for (j=0;j<c;j++)
+        {
+            matC[i][j] = 0;
+            for(k=0;k<l;k++)
+                matC[i][j] += matA[i][k] * matB[k][j];
+        }
+    }
 }
