@@ -1,10 +1,11 @@
 import time
+from functools import lru_cache
 
 def fatRecursiva(n):
     if n == 1 or n == 0:
         return 1
     else:
-        return fat(n-1)*n
+        return fatRecursiva(n-1)*n
 
 def fatIterativa(n):
     fat = 1
@@ -16,7 +17,7 @@ def fibRecursiva(n):
     if n == 1 or n == 2:
         return 1
     else:
-        return fib(n-1) + fib(n-2)
+        return fibRecursiva(n-1) + fibRecursiva(n-2)
 
 def fibIterativa(n):
     if n == 0:
@@ -35,37 +36,48 @@ def fatRecursiva2(n):
     if n == 1 or n == 0:
         return 1
     else:
-        return fat(n-1)*n
+        return fatRecursiva2(n-1)*n
 
 @lru_cache(maxsize=None)
 def fibRecursiva2(n):
     if n == 1 or n == 2:
         return 1
     else:
-        return fib(n-1) + fib(n-2)
+        return fibRecursiva2(n-1) + fibRecursiva2(n-2)
 
-n = int(input("Digite o valor de n"))
+n = int(input("Digite o valor de n: "))
 
 inicio = time.time()
-for i in range (50000):
+for i in range (100000):
     fatRecursiva(n)
 fim = time.time()
-print("Duração %s" %(fim - inicio))
+print("Duração fatorial recursiva sem lru %s" %(fim - inicio))
 
 inicio = time.time()
-for i in range (50000):
-    fibRecursiva(n)
+fibRecursiva(n)
 fim = time.time()
-print("Duração %s" %(fim - inicio))
+print("Duração fibonacci recursiva sem lru %s" %(fim - inicio))
 
 inicio = time.time()
-for i in range (50000):
+for i in range (100000):
     fatRecursiva2(n)
 fim = time.time()
-print("Duração %s" %(fim - inicio))
+print("Duração fatorial recursivo com lru %s" %(fim - inicio))
 
 inicio = time.time()
-for i in range (50000):
+for i in range (100000):
     fibRecursiva2(n)
 fim = time.time()
-print("Duração %s" %(fim - inicio))
+print("Duração fibonacci recursivo com lru %s" %(fim - inicio))
+
+inicio = time.time()
+for i in range (100000):
+    fatIterativa(n)
+fim = time.time()
+print("Duração fatorial iterativo %s" %(fim - inicio))
+
+inicio = time.time()
+for i in range (100000):
+    fibIterativa(n)
+fim = time.time()
+print("Duração fibonacci iterativo %s" %(fim - inicio))
