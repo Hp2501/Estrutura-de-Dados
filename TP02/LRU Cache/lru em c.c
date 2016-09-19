@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define MAX 20
+#define MAX 100
 
 long long int fibLru(int n, long long int *cache);
 long long int fib(int n);
@@ -11,11 +11,11 @@ int limparCache(long long int *cache);
 
 int main()
 {
-   long long int cache[MAX];
+   long long int cache[MAX] = {0};
    long long int n, fibonacci, fibonacciCache, fatorialCache, fatorial, i;
    double duracao;
-   limparCache(cache);
-   printf("Digite o valor de n: ");scanf("%lli", &n);
+
+   printf("Digite o valor de n: ");scanf("%llis", &n);
    clock_t inicio, termino;
 
    inicio = clock();
@@ -28,17 +28,6 @@ int main()
    printf("\nFibonacci com cache: %lli no tempo de %fs", fibonacciCache, duracao);
 
 
-   inicio = clock();
-   for(i=0;i<50000;i++)
-   {
-       fibonacciCache = fibLru(n, cache);
-   }
-   termino = clock();
-   duracao = (double)(termino - inicio)/CLOCKS_PER_SEC;
-   printf("\nFibonacci com cache: %lli no tempo de %fs\n\n", fibonacciCache, duracao);
-
-   limparCache(cache);
-
 
    inicio = clock();
    for (i=0;i<50000;i++)
@@ -49,14 +38,16 @@ int main()
    duracao = (double)(termino - inicio)/CLOCKS_PER_SEC;
    printf("\nFibonacci sem cache: %lli no tempo de %fs\n\n", fibonacci, duracao);
 
+   limparCache(cache);
+
    inicio = clock();
    for (i=0;i<50000;i++)
    {
        fatorial = fat(n);
    }
    termino = clock();
-   duracao = (double)(termino - inicio)/CLOCKS_PER_SEC;
-   printf("\nFatorial sem cache %lli no tempo de %fs\n\n", fatorial, duracao);
+   duracao = (double)((termino - inicio)/CLOCKS_PER_SEC);
+   printf("\nFatorial sem cache %lli no tempo de %fs\n", fatorial, duracao);
 
    inicio = clock();
    for (i=0;i<50000;i++)
@@ -66,16 +57,6 @@ int main()
    termino = clock();
    duracao = (double)(termino - inicio)/CLOCKS_PER_SEC;
    printf("\nFatorial com cache %lli no tempo de %fs", fatorialCache, duracao);
-
-   inicio = clock();
-   for (i=0;i<50000;i++)
-   {
-       fatorialCache = fatLru(n, cache);
-   }
-   termino = clock();
-   duracao = (double)(termino - inicio)/CLOCKS_PER_SEC;
-   printf("\nFatorial com cache %lli no tempo de %fs\n\n", fatorialCache, duracao);
-   limparCache(cache);
 
    return 0;
 }
