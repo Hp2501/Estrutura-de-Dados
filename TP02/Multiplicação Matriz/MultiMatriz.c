@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-int iniciarMatriz(int l, int c, int **mat);
-int produtoMatriz(int l, int c, int **matA, int **matB, int **matC);
-int imprimeMatriz(int l, int c, int **mat);
+float iniciarMatriz(int l, int c, float **mat);
+float produtoMatriz(float l, float c, float **matA, float **matB, float **matC);
+float imprimeMatriz(float l, float c, float **mat);
 
-int main()
+float main()
 {
-    int **matA, **matB, **matC, l1, c1, l2, c2, i;
+    float **matA, **matB, **matC;
+    int l1, c1, l2, c2, i;
 
 
     inicio:
@@ -20,17 +21,17 @@ int main()
             goto inicio;
         }
 
-        matA = (int **)malloc(sizeof(int)*l1);
+        matA = (float **)malloc(sizeof(float)*l1);
     for (i = 0; i < l1; i++)
-        matA[i] = (int *)malloc(sizeof(int)*c1);
+        matA[i] = (float *)malloc(sizeof(float)*c1);
 
-    matB = (int **)malloc(sizeof(int)*l2);
+    matB = (float **)malloc(sizeof(float)*l2);
     for (i = 0; i < l2; i++)
-        matB[i] = (int *)malloc(sizeof(int)*c2);
+        matB[i] = (float *)malloc(sizeof(float)*c2);
 
-    matC = (int **)malloc(sizeof(int)*l2);
+    matC = (float **)malloc(sizeof(float)*l2);
     for (i = 0; i < l2; i++)
-        matC[i] = (int *)malloc(sizeof(int)*c1);
+        matC[i] = (float *)malloc(sizeof(float)*c1);
 
     iniciarMatriz(l1, c1, matA);
     imprimeMatriz(l1, c1, matA);
@@ -38,16 +39,18 @@ int main()
     imprimeMatriz(l2, c2, matB);
     produtoMatriz(l2, c1, matA, matB, matC);
     imprimeMatriz(l2, c1, matC);
+
+    return 0;
 }
 
-int imprimeMatriz(int l, int c, int **mat)
+float imprimeMatriz(float l, float c, float **mat)
 {
     int i, j;
     for(i=0;i<l;i++)
     {
         for(j=0;j<c;j++)
     {
-        printf("%d\t", mat[i][j]);
+        printf("%.2f\t", mat[i][j]);
 
     }
     printf("\n");
@@ -55,17 +58,17 @@ int imprimeMatriz(int l, int c, int **mat)
     printf("\n");
 }
 
-int iniciarMatriz(int l, int c, int **mat)
+float iniciarMatriz(int l, int c, float **mat)
 {
     int i, j;
     for(i=0;i<l;i++)
         for(j=0;j<c;j++)
     {
-        printf("\nElemento[%d][%d]: ", i+1, j+1);scanf("%d", &mat[i][j]);
+        printf("\nElemento[%d][%d]: ", i+1, j+1);scanf("%f", &mat[i][j]);
     }
 }
 
-int produtoMatriz(int l, int c, int **matA, int **matB, int **matC)
+float produtoMatriz(float l, float c, float **matA, float **matB, float **matC)
 {
     int i, j, k;
 

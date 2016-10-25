@@ -5,7 +5,7 @@ def criarMatriz(linha, coluna):
     for i in range(linha):
         linha = []
         for j in range(coluna):
-            linha = linha + [int(input("Posição [%d][%d]: " %(i+1, j+1)))]
+            linha = linha + [float(input("Posição [%d][%d]: " %(i+1, j+1)))]
         a = a + [linha]
     return a
 
@@ -22,7 +22,7 @@ def imprimirMatriz(linha, coluna, matriz):
     print("Matriz")
     for i in range(linha):
         for j in range(coluna):
-            print("%d" %(matriz[i][j]))
+            print("%f" %(matriz[i][j]))
 
 def multMatriz(linha, coluna, matA, matB):
     tamanhoL = len(matA)
