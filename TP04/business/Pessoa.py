@@ -11,7 +11,7 @@ class Pessoa:
     @nome.setter
     def nome(self, n):
         if not n:
-            print("Nome vazio")
+            raise Exception("CAMPO NOME VAZIO")
         else:
             self._nome = n
 
@@ -36,11 +36,3 @@ class Pessoa:
             self._cpf = '11111111111'
         else:
             self._cpf = c
-
-p1 = Pessoa('', 27, '12345678910')
-print(p1.nome, p1.idade, p1.cpf)
-p1.nome = 'Teste'
-p1.idade = 28
-p1.cpf = '22233344456'
-print(p1.nome, p1.idade, p1.cpf)
-
