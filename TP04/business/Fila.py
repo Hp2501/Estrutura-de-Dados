@@ -11,6 +11,13 @@ def iniciarFilaCircular(cap):
     filaCircular = {'conteudo':conteudo, 'inicio':inicio, 'fim':fim, 'capacidade':capacidade, 'tamanho':tamanho}
     return filaCircular
 
+def imprimirFila(fc):
+    if estaVazia(fc):
+        print("Fila vazia!")
+    else:
+        return fc
+
+
 def estaVazia(fc):
     if fc['tamanho'] == 0:
         return True
