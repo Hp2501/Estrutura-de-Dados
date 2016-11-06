@@ -1,48 +1,38 @@
-def iniciarFilaCircular(cap):
-    inicio = 0
-    fim = 0
-    tamanho = 0
-    if cap < 5:
-        print("Capacidade inferior a permitida, irei criar uma fila de capacidade 5")
-        capacidade = 5
-    else:
-        capacidade = cap
-    conteudo = [None]*cap
-    filaCircular = {'conteudo':conteudo, 'inicio':inicio, 'fim':fim, 'capacidade':capacidade, 'tamanho':tamanho}
-    return filaCircular
+class Fila:
+    def __init__(self, cap):
+        self.dados = []
+        self.inicio = 0
+        self.fim = 0
+        self.tamanho = 0
+        if cap < 5:
+            print("Limite minimo para fila é 5. A fila será configurada para 5.")
+            self.capacidade = 5
+        else:
+            self.capacidade = cap
 
-def imprimirFila(fc):
-    if estaVazia(fc):
-        print("Fila vazia!")
-    else:
-        return fc
+    def estaVazia(self):
+        if len(self.dados) == 0:
+            return True
+        else:
+            return False
 
+    def estaCheia(self):
+        if len(self.dados) == self.capacidade:
+            return True
+        else:
+            return False
 
-def estaVazia(fc):
-    if fc['tamanho'] == 0:
-        return True
-    else:
-        return False
+    def entrarFila(self, e):
+        if not self.estaCheia():
+            self.dados.append(e)
+        else:
+            print("Fila Cheia")
 
-def estaCheia(fc):
-    if fc['tamanho'] == fc['capacidade']:
-        return True
-    else:
-        return False
+    def sairFila(self):
+        if not self.estaVazia():
+            return self.dados.pop(0)
+        else:
+            print("Fila Vazia")
 
-def entrarFila(fc, e):
-    if estaCheia(fc):
-        print("Erro! Fila Cheia!")
-    else:
-        fc['conteudo'][fc['fim']] = e
-        fc['fim'] = (fc['fim' + 1]) % fc['capacidade']
-        fc['tamanho'] = fc['tamanho'] + 1
-
-def sairFila(fc):
-    if estaVazia(fc):
-        print("Erro! Fila Vazia!")
-        return -1
-    else:
-        e = fc['conteudo'][fc['inicio']]
-        fc['inicio'] = (fc['inicio' + 1]) % fc['capacidade']
-        fc['tamanho'] = fc['tamanho'] - 1
+    def imprimirFila(self):
+        return self.dados
