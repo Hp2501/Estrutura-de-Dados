@@ -1,4 +1,5 @@
 import datetime
+import timeit
 
 def buscaSequencial(vetor, elemento):
     for i in range(len(vetor)):
@@ -24,49 +25,62 @@ def testeDesempenhoSequencial(razao):
     vetor = []
     for i in range(razao):
         vetor.append(i)
-    inicio = datetime.datetime.now()
+    inicio = timeit.default_timer()
     buscaSequencial(vetor, razao-1)
-    fim = datetime.datetime.now()
-    print(fim - inicio)
+    fim = timeit.default_timer()
+    print(fim-inicio)
 
 def testeDesempenhoBinario(razao):
     vetor = []
     for i in range(razao):
         vetor.append(i)
-    inicio = datetime.datetime.now()
+    inicio = timeit.default_timer()
     buscaBinaria(vetor, razao-1)
-    fim = datetime.datetime.now()
-    print(fim - inicio)
+    fim = timeit.default_timer()
+    print(fim-inicio)
 
+print("Impressão de tempo de Busca Sequencial")
 razao = 100
-
+print("Vetor com 100 elementos")
 testeDesempenhoSequencial(razao)
-
 razao = 1000
-
+print("Vetor com 1000 elementos")
 testeDesempenhoSequencial(razao)
-
 razao = 10000
-
+print("Vetor com 10000 elementos")
 testeDesempenhoSequencial(razao)
-
 razao = 100000
-
+print("Vetor com 100000 elementos")
 testeDesempenhoSequencial(razao)
-
 razao = 1000000
-
+print("Vetor com 1000000 elementos")
 testeDesempenhoSequencial(razao)
-
 razao = 10000000
-
+print("Vetor com 10000000 elementos")
 testeDesempenhoSequencial(razao)
-
 razao = 100000000
-
+print("Vetor com 100000000 elementos")
 testeDesempenhoSequencial(razao)
 
-
-
-
-
+print("\nImpressão de tempo de Busca Binária")
+razao = 100
+print("Vetor com 100 elementos")
+testeDesempenhoBinario(razao)
+razao = 1000
+print("Vetor com 1000 elementos")
+testeDesempenhoBinario(razao)
+razao = 10000
+print("Vetor com 10000 elementos")
+testeDesempenhoBinario(razao)
+razao = 100000
+print("Vetor com 100000 elementos")
+testeDesempenhoBinario(razao)
+razao = 1000000
+print("Vetor com 1000000 elementos")
+testeDesempenhoBinario(razao)
+razao = 10000000
+print("Vetor com 10000000 elementos")
+testeDesempenhoBinario(razao)
+razao = 100000000
+print("Vetor com 100000000 elementos")
+testeDesempenhoBinario(razao)
