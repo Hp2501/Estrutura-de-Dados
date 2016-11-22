@@ -159,6 +159,7 @@ print("Impressão de tempo de Ordenação BubbleSort")
 
 razao = 100
 print("Vetor com 100 elementos: ")
+testeDesempenhoBolha(razao)
 razao = 1000
 print("Vetor com 1000 elementos: ")
 testeDesempenhoBolha(razao)
