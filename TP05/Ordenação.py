@@ -1,4 +1,7 @@
 import datetime
+import sys
+
+sys.setrecursionlimit(150000)
 
 def bolha(v):
     tamVetor = len(v)
@@ -44,15 +47,24 @@ def ordenacaoMerge(v):
         d = ordenacaoMerge(v[m:])
         return intercala(e, d)
 
-def ordQuick(v):
-    if len(v) <= 1:
-        return v
+def particionar(vetor, inicio, fim):
+    pivo = inicio
+    for i in range(inicio+1, fim+1):
+        if vetor[i] <= vetor[inicio]:
+            pivo += 1
+            vetor[i], vetor[pivo] = vetor[pivo], vetor[i]
+    vetor[pivo], vetor[inicio] = vetor[inicio], vetor[pivo]
+    return pivo
 
-    pivo = v[0]
-    iguais = [x for x in v if x == pivo]
-    menores = [x for x in v if x < pivo]
-    maiores = [x for x in v if x > pivo]
-    return ordQuick(menores) + iguais + ordQuick(maiores)
+
+def ordQuick(vetor, inicio=0, fim=None):
+    if fim is None:
+        fim = len(vetor) - 1
+    if inicio >= fim:
+        return
+    pivo = particionar(vetor, inicio, fim)
+    ordQuick(vetor, inicio, pivo - 1)
+    ordQuick(vetor, pivo + 1, fim)
 
 def ordSelecao(v):
     for i in range(len(v)):
@@ -68,47 +80,41 @@ def ordSelecao(v):
     return v
 
 
-def troca(a, i, j):
-    a[i], a[j] = a[j], a[i]
+def heapsort(aList):
+    # convert aList to heap
+    length = len(aList) - 1
+    leastParent = length // 2
+    for i in range(leastParent, -1, -1):
+        moveDown(aList, i, length)
 
-def heap(vetor):
-    n = 0
-    m = 0
-    while True:
-        for i in [0, 1]:
-            m += 1
-            if m >= len(vetor):
-                return True
-            if vetor[m] > vetor[n]:
-                return False
-        n += 1
+    # flatten heap into sorted array
+    for i in range(length, 0, -1):
+        if aList[0] > aList[i]:
+            swap(aList, 0, i)
+            moveDown(aList, 0, i - 1)
 
-def peneirar(vetor, n, max):
-    while True:
-        maior = n
-        c1 = 2*n + 1
-        c2 = c1 + 1
-        for c in [c1, c2]:
-            if c < max and vetor[c] > vetor[maior]:
-                maior = c
-        if maior == n:
-            return
-        troca(vetor, n, maior)
-        n = maior
 
-def transformarHeap(vetor):
-    i = len(vetor) / 2 - 1
-    max = len(vetor)
-    while i >= 0:
-        peneirar(vetor, i, max)
-        i -= 1
+def moveDown(aList, first, last):
+    largest = 2 * first + 1
+    while largest <= last:
+        # right child exists and is larger than left child
+        if (largest < last) and (aList[largest] < aList[largest + 1]):
+            largest += 1
 
-def heapsort(vetor):
-    transformarHeap(vetor)
-    j = len(vetor) - 1
-    while j > 0:
-        troca(vetor, 0, j)
-        j -= 1
+        # right child is larger than parent
+        if aList[largest] > aList[first]:
+            swap(aList, largest, first)
+            # move down to largest child
+            first = largest;
+            largest = 2 * first + 1
+        else:
+            return  # force exit
+
+
+def swap(A, x, y):
+    tmp = A[x]
+    A[x] = A[y]
+    A[y] = tmp
 
 def testeDesempenhoBolha(razao):
     vetor = []
@@ -155,25 +161,7 @@ def testeDesempenhoHeapsort(razao):
     fim = datetime.datetime.now()
     print(fim - inicio)
 
-print("Impressão de tempo de Ordenação BubbleSort")
-
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoBolha(razao)
-
-print("\n\nImpressão de tempo de Ordenação QuickSort")
+print("Impressão de tempo de Ordenação QuickSort")
 
 razao = 100
 print("Vetor com 100 elementos: ")
@@ -190,24 +178,6 @@ testeDesempenhoQuick(razao)
 razao = 1000000
 print("Vetor com 1000000 elementos: ")
 testeDesempenhoQuick(razao)
-
-print("\n\nImpressão de tempo de Ordenação MergeSort")
-
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoMerge(razao)
 
 print("\n\nImpressão de tempo de Ordenação HeapSort")
 
@@ -244,3 +214,39 @@ testeDesempenhoInsercao(razao)
 razao = 1000000
 print("Vetor com 1000000 elementos: ")
 testeDesempenhoInsercao(razao)
+
+print("\n\nImpressão de tempo de Ordenação BubbleSort")
+
+razao = 100
+print("Vetor com 100 elementos: ")
+testeDesempenhoBolha(razao)
+razao = 1000
+print("Vetor com 1000 elementos: ")
+testeDesempenhoBolha(razao)
+razao = 10000
+print("Vetor com 10000 elementos: ")
+testeDesempenhoBolha(razao)
+razao = 100000
+print("Vetor com 100000 elementos: ")
+testeDesempenhoBolha(razao)
+razao = 1000000
+print("Vetor com 1000000 elementos: ")
+testeDesempenhoBolha(razao)
+
+print("\n\nImpressão de tempo de Ordenação MergeSort")
+
+razao = 100
+print("Vetor com 100 elementos: ")
+testeDesempenhoMerge(razao)
+razao = 1000
+print("Vetor com 1000 elementos: ")
+testeDesempenhoMerge(razao)
+razao = 10000
+print("Vetor com 10000 elementos: ")
+testeDesempenhoMerge(razao)
+razao = 100000
+print("Vetor com 100000 elementos: ")
+testeDesempenhoMerge(razao)
+razao = 1000000
+print("Vetor com 1000000 elementos: ")
+testeDesempenhoMerge(razao)
