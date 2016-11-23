@@ -47,24 +47,22 @@ def ordenacaoMerge(v):
         d = ordenacaoMerge(v[m:])
         return intercala(e, d)
 
-def particionar(vetor, inicio, fim):
-    pivo = inicio
-    for i in range(inicio+1, fim+1):
-        if vetor[i] <= vetor[inicio]:
-            pivo += 1
-            vetor[i], vetor[pivo] = vetor[pivo], vetor[i]
-    vetor[pivo], vetor[inicio] = vetor[inicio], vetor[pivo]
-    return pivo
-
-
-def ordQuick(vetor, inicio=0, fim=None):
-    if fim is None:
-        fim = len(vetor) - 1
-    if inicio >= fim:
-        return
-    pivo = particionar(vetor, inicio, fim)
-    ordQuick(vetor, inicio, pivo - 1)
-    ordQuick(vetor, pivo + 1, fim)
+def ordQuick(vetor):
+    if len(vetor) > 1:
+        pivo = vetor[0]
+        maiores = []
+        menores = []
+        iguais = []
+        for e in vetor:
+            if e > pivo:
+                maiores.append(e)
+            elif e < pivo:
+                menores.append(e)
+            else:
+                iguais.append(e)
+        return ordQuick(menores) + iguais + ordQuick(maiores)
+    else:
+        return vetor
 
 def ordSelecao(v):
     for i in range(len(v)):
@@ -80,38 +78,31 @@ def ordSelecao(v):
     return v
 
 
-def heapsort(aList):
-    # convert aList to heap
-    length = len(aList) - 1
-    leastParent = length // 2
-    for i in range(leastParent, -1, -1):
-        moveDown(aList, i, length)
-
-    # flatten heap into sorted array
-    for i in range(length, 0, -1):
-        if aList[0] > aList[i]:
-            swap(aList, 0, i)
-            moveDown(aList, 0, i - 1)
+def heapsort(vetor):
+    tamanho = len(vetor) - 1
+    parente = tamanho // 2
+    for i in range(parente, -1, -1):
+        mover(vetor, i, tamanho)
+    for i in range(tamanho, 0, -1):
+        if vetor[0] > vetor[i]:
+            troca(vetor, 0, i)
+            mover(vetor, 0, i - 1)
 
 
-def moveDown(aList, first, last):
-    largest = 2 * first + 1
-    while largest <= last:
-        # right child exists and is larger than left child
-        if (largest < last) and (aList[largest] < aList[largest + 1]):
-            largest += 1
-
-        # right child is larger than parent
-        if aList[largest] > aList[first]:
-            swap(aList, largest, first)
-            # move down to largest child
-            first = largest;
-            largest = 2 * first + 1
+def mover(vetor, inicio, fim):
+    maior = 2 * inicio + 1
+    while maior <= fim:
+        if (maior < fim) and (vetor[maior] < vetor[maior + 1]):
+            maior += 1
+        if vetor[maior] > vetor[inicio]:
+            troca(vetor, maior, inicio)
+            inicio = maior;
+            maior = 2 * inicio + 1
         else:
-            return  # force exit
+            return
 
 
-def swap(A, x, y):
+def troca(A, x, y):
     tmp = A[x]
     A[x] = A[y]
     A[y] = tmp
