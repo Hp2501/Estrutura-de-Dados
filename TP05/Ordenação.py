@@ -1,5 +1,6 @@
 import datetime
 import sys
+from random import randint
 
 sys.setrecursionlimit(150000)
 
@@ -109,8 +110,11 @@ def troca(A, x, y):
 
 def testeDesempenhoBolha(razao):
     vetor = []
+    inicio = datetime.datetime.now()
     for i in range(razao):
         vetor.insert(0, i)
+        fim = datetime.datetime.now()
+    print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
     bolha(vetor)
     fim = datetime.datetime.now()
@@ -118,8 +122,11 @@ def testeDesempenhoBolha(razao):
 
 def testeDesempenhoInsercao(razao):
     vetor = []
+    inicio = datetime.datetime.now()
     for i in range(razao):
         vetor.insert(0, i)
+        fim = datetime.datetime.now()
+    print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
     insercao(vetor)
     fim = datetime.datetime.now()
@@ -127,8 +134,11 @@ def testeDesempenhoInsercao(razao):
 
 def testeDesempenhoMerge(razao):
     vetor = []
+    inicio = datetime.datetime.now()
     for i in range(razao):
         vetor.insert(0, i)
+        fim = datetime.datetime.now()
+    print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
     ordenacaoMerge(vetor)
     fim = datetime.datetime.now()
@@ -136,8 +146,11 @@ def testeDesempenhoMerge(razao):
 
 def testeDesempenhoQuick(razao):
     vetor = []
+    inicio = datetime.datetime.now()
     for i in range(razao):
-        vetor.insert(0, i)
+        vetor.insert(0, randint(0, razao))
+        fim = datetime.datetime.now()
+    print("Finalizou a criação da lista em", fim-inicio)   
     inicio = datetime.datetime.now()
     ordQuick(vetor)
     fim = datetime.datetime.now()
@@ -145,8 +158,11 @@ def testeDesempenhoQuick(razao):
 
 def testeDesempenhoHeapsort(razao):
     vetor = []
+    inicio = datetime.datetime.now()
     for i in range(razao):
         vetor.insert(0, i)
+        fim = datetime.datetime.now()
+    print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
     heapsort(vetor)
     fim = datetime.datetime.now()
