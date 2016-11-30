@@ -31,7 +31,6 @@ def verificarVertice(palavra, vertice, indice):
         else:
             return False
 
-
 def imprimirDefinicao(palavra, vertice, indice):
     listaPalavra = list(palavra)
     if len(palavra) == 0 and len(vertice['conteudo']) is not None:
@@ -45,9 +44,10 @@ def imprimirDefinicao(palavra, vertice, indice):
         else:
             return False
 
+raiz = iniciarVertice()
+vetor = raiz
 
-def dicionario(vertice):
-    while (True):
+while (True):
         palavra = input("Digite a palavra: ")
         if not verificarVertice(palavra, raiz, 0):
             print("\nA palavra não existe no dicionário. Gostaria de adcionar a palavra? ")
@@ -65,11 +65,7 @@ def dicionario(vertice):
             elif opcao == 2:
                 continue
             elif opcao == 0:
-                return False
+                break
         else:
             significado = imprimirDefinicao(palavra, raiz, 0)
             print("A palavra já existe no dicinário e sua definição é: %s" % significado)
-
-
-raiz = iniciarVertice()
-dicionario(raiz)
