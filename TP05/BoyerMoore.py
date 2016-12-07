@@ -30,11 +30,20 @@ def buscaBoyerMoore(texto, padrao):
 
 def trocaBoyerMoore(texto, padrao, sub, ocorrencias):
     listaTexto = list(texto)
-    while len(ocorrencias) > 0:
-        for i in range(ocorrencias[0], ocorrencias[0]+len(padrao)-1):
-            listaTexto.pop(ocorrencias[0])
-            listaTexto.insert(ocorrencias[0], sub[i])
-        ocorrencias.pop(0)
+    i = 0
+    stringModificada = []
+    while i < len(texto):
+        if i != ocorrencias[0]:
+            stringModificada.append(listaTexto[i])
+            i += 1
+        else:
+            stringModificada.append(sub)
+            i += len(padrao)
+            ocorrencias.pop(0)
+            if len(ocorrencias) == 1:
+                ocorrencias.append(len(texto)+1)
+    stringFinal = "".join(stringModificada)
+    return stringFinal
 
 opcao = ''
 while opcao != 0:
@@ -54,15 +63,16 @@ while opcao != 0:
         opcao2 = int(input("Escolha: "))
         if opcao2 == 1:
             sub = input("\nQual o texto que você gostaria de colocar no lugar do padrão: ")
-            textoNovo = trocaBoyerMoore(texto, padrao, sub)
+            textoNovo = trocaBoyerMoore(texto, padrao, sub, ocorrencias)
             print(textoNovo)
         elif opcao2 == 2:
             continue
 
     elif opcao == 2:
         nomeArquivo = input("Qual o nome do arquivo: ")
-        file = open(nomeArquivo, 'r')
+        file = open(nomeArquivo, 'r+')
         texto = file.read()
+        file.close()
         padrao = input("Qual será o padrao a ser procurado: ")
         ocorrencias = buscaBoyerMoore(texto, padrao)
         print("O padrão foi encontrado nos seguintes indices: ", ocorrencias)
@@ -72,9 +82,10 @@ while opcao != 0:
         opcao2 = int(input("Escolha: "))
         if opcao2 == 1:
             sub = input("\nQual o texto que você gostaria de colocar no lugar do padrão: ")
-            textoNovo = trocaBoyerMoore(texto, padrao, sub)
             file = open(nomeArquivo, 'a')
+            textoNovo = trocaBoyerMoore(texto, padrao, sub, ocorrencias)
             file.write(textoNovo)
+            file.close()
         elif opcao2 == 2:
             continue
     elif opcao == 0:
