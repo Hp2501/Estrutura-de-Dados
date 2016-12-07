@@ -82,26 +82,60 @@ def imprimirDefinicao(palavra, vertice, indice):
 
 raiz = iniciarVertice()
 vertice = raiz
+file = open('dicionario.txt', 'r')
+listaFile = file.readlines()
+listaPalavras = []
+listaDefinicao = []
+file.close()
+i = 0
+while i < len(listaFile):
+    listaPalavras.append(listaFile[i])
+    i += 2
+
+j = 1
+while j < len(listaFile):
+    listaDefinicao.append(listaFile[j])
+    j += 2
+
+for i in range(len(listaPalavras)):
+    palavra = listaPalavras[i]
+    if not verificarVertice(palavra.lower(), raiz, 0):
+        parcial = fatiaVertice(palavra.lower(), raiz, 0)
+        for i in range(len(parcial)):
+            vertice = voltaVertice(palavra.lower(), raiz, 0)
+            adcionarFilho(verticeFilho(palavra.lower(), vertice, 0), iniciarVertice(), fatiaVertice(palavra.lower(), raiz, 0)[0])
+for i in raiz(len(listaDefinicao)):
+    definicao = listaDefinicao[i]
+    vertice = voltaVertice(palavra.lower(), raiz, 0)
+    adcionarConteudo(vertice, definicao)
+
+
 while (True):
     palavra = input("Digite a palavra: ")
-    if not verificarVertice(palavra, raiz, 0):
+    if not verificarVertice(palavra.lower(), raiz, 0):
         print("\nA palavra não existe no dicionário. Gostaria de adcionar a palavra? ")
         print("1 - Sim")
         print("2 - Não")
         print("0 - Sair")
         opcao = int(input("\nEscolha: "))
         if opcao == 1:
-            parcial = fatiaVertice(palavra, raiz, 0)
+            file = open('dicionario.txt', 'a')
+            file.write(palavra + '\n')
+            file.close()
+            parcial = fatiaVertice(palavra.lower(), raiz, 0)
             for i in range(len(parcial)):
-                vertice = voltaVertice(palavra, raiz, 0)
-                adcionarFilho(verticeFilho(palavra, vertice, 0), iniciarVertice(), fatiaVertice(palavra, raiz, 0)[0])
+                vertice = voltaVertice(palavra.lower(), raiz, 0)
+                adcionarFilho(verticeFilho(palavra.lower(), vertice, 0), iniciarVertice(), fatiaVertice(palavra.lower(), raiz, 0)[0])
             definicao = input("Digite a definição: ")
-            vertice = voltaVertice(palavra, raiz, 0)
+            file = open('dicionario.txt', 'a')
+            file.write(definicao + '\n')
+            file.close()
+            vertice = voltaVertice(palavra.lower(), raiz, 0)
             adcionarConteudo(vertice, definicao)
         elif opcao == 2:
             continue
         elif opcao == 0:
             break
     else:
-        significado = imprimirDefinicao(palavra, raiz, 0)
+        significado = imprimirDefinicao(palavra.lower(), raiz, 0)
         print("A palavra já existe no dicinário e sua definição é: %s" % significado)
