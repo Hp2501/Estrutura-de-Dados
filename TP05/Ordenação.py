@@ -112,7 +112,7 @@ def testeDesempenhoBolha(razao):
     vetor = []
     inicio = datetime.datetime.now()
     for i in range(razao):
-        vetor.insert(0, i)
+        vetor.append(randint(0, razao))
         fim = datetime.datetime.now()
     print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
@@ -124,7 +124,7 @@ def testeDesempenhoInsercao(razao):
     vetor = []
     inicio = datetime.datetime.now()
     for i in range(razao):
-        vetor.insert(0, i)
+        vetor.append(randint(0, razao))
         fim = datetime.datetime.now()
     print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
@@ -136,7 +136,7 @@ def testeDesempenhoMerge(razao):
     vetor = []
     inicio = datetime.datetime.now()
     for i in range(razao):
-        vetor.insert(0, i)
+        vetor.append(randint(0, razao))
         fim = datetime.datetime.now()
     print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()
@@ -148,7 +148,7 @@ def testeDesempenhoQuick(razao):
     vetor = []
     inicio = datetime.datetime.now()
     for i in range(razao):
-        vetor.insert(0, randint(0, razao))
+        vetor.append(randint(0, razao))
         fim = datetime.datetime.now()
     print("Finalizou a criação da lista em", fim-inicio)   
     inicio = datetime.datetime.now()
@@ -160,7 +160,7 @@ def testeDesempenhoHeapsort(razao):
     vetor = []
     inicio = datetime.datetime.now()
     for i in range(razao):
-        vetor.insert(0, i)
+        vetor.append(randint(0, razao))
         fim = datetime.datetime.now()
     print("Finalizou a criação da lista em", fim-inicio)
     inicio = datetime.datetime.now()

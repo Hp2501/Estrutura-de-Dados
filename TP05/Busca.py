@@ -1,5 +1,4 @@
 import datetime
-import timeit
 
 def buscaSequencial(vetor, elemento):
     for i in range(len(vetor)):
@@ -25,18 +24,18 @@ def testeDesempenhoSequencial(razao):
     vetor = []
     for i in range(razao):
         vetor.append(i)
-    inicio = timeit.default_timer()
+    inicio = datetime.datetime.now()
     buscaSequencial(vetor, razao-1)
-    fim = timeit.default_timer()
+    fim = datetime.datetime.now()
     print(fim-inicio)
 
 def testeDesempenhoBinario(razao):
     vetor = []
     for i in range(razao):
         vetor.append(i)
-    inicio = timeit.default_timer()
+    inicio = datetime.datetime.now()
     buscaBinaria(vetor, razao-1)
-    fim = timeit.default_timer()
+    fim = datetime.datetime.now()
     print(fim-inicio)
 
 print("Impressão de tempo de Busca Sequencial")

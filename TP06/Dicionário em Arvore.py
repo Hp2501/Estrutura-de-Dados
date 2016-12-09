@@ -89,14 +89,15 @@ listaDefinicao = []
 file.close()
 i = 0
 while i < len(listaFile):
-    listaPalavras.append(listaFile[i])
+    listaPalavras.append(listaFile[i][0:-1])
     i += 2
 
 j = 1
 while j < len(listaFile):
-    listaDefinicao.append(listaFile[j])
+    listaDefinicao.append(listaFile[j][0:-1])
     j += 2
-
+print(listaPalavras)
+print(listaDefinicao)
 for i in range(len(listaPalavras)):
     palavra = listaPalavras[i]
     if not verificarVertice(palavra.lower(), raiz, 0):
@@ -104,10 +105,10 @@ for i in range(len(listaPalavras)):
         for i in range(len(parcial)):
             vertice = voltaVertice(palavra.lower(), raiz, 0)
             adcionarFilho(verticeFilho(palavra.lower(), vertice, 0), iniciarVertice(), fatiaVertice(palavra.lower(), raiz, 0)[0])
-for i in raiz(len(listaDefinicao)):
-    definicao = listaDefinicao[i]
-    vertice = voltaVertice(palavra.lower(), raiz, 0)
-    adcionarConteudo(vertice, definicao)
+    for i in range(len(listaDefinicao)):
+        definicao = listaDefinicao[i]
+        vertice = voltaVertice(palavra.lower(), raiz, 0)
+        adcionarConteudo(vertice, definicao)
 
 
 while (True):
