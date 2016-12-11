@@ -1,8 +1,8 @@
 import datetime
 import sys
-import multiprocessing
 
-sys.setrecursionlimit(150000)
+sys.setrecursionlimit(15000000)
+
 
 
 def bolha(v):
@@ -54,21 +54,9 @@ def ordenacaoMerge(v):
 
 
 def ordQuick(vetor):
-    if len(vetor) > 1:
-        pivo = vetor[0]
-        maiores = []
-        menores = []
-        iguais = []
-        for e in vetor:
-            if e > pivo:
-                maiores.append(e)
-            elif e < pivo:
-                menores.append(e)
-            else:
-                iguais.append(e)
-        return ordQuick(menores) + iguais + ordQuick(maiores)
-    else:
+    if len(vetor) <= 1:
         return vetor
+    return ordQuick([x for x in vetor if x < vetor[0]]) + [x for x in vetor if x == vetor[0]] + ordQuick([x for x in vetor if x > vetor[0]])
 
 
 def ordSelecao(v):
