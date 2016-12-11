@@ -21,65 +21,30 @@ def buscaBinaria(vetor, elemento):
     return -1
 
 def testeDesempenhoSequencial(razao):
+    print("\n\nImpressão de tempo de Busca Sequencial")
     vetor = []
-    for i in range(razao):
-        vetor.append(i)
-    inicio = datetime.datetime.now()
-    buscaSequencial(vetor, razao-1)
-    fim = datetime.datetime.now()
-    print(fim-inicio)
+    while razao <= 100000000:
+        print("Vetor com %d elementos: " % razao)
+        for i in range(razao):
+            vetor.append(i)
+        inicio = datetime.datetime.now()
+        buscaSequencial(vetor, razao)
+        fim = datetime.datetime.now()
+        print(fim-inicio)
+        razao *= 10
 
 def testeDesempenhoBinario(razao):
     vetor = []
-    for i in range(razao):
-        vetor.append(i)
-    inicio = datetime.datetime.now()
-    buscaBinaria(vetor, razao-1)
-    fim = datetime.datetime.now()
-    print(fim-inicio)
+    print("\n\nImpressão de tempo de Busca Binária")
+    while razao <= 100000000:
+        print("Vetor com %d elementos: " % razao)
+        for i in range(razao):
+            vetor.append(i)
+        inicio = datetime.datetime.now()
+        buscaBinaria(vetor, razao)
+        fim = datetime.datetime.now()
+        print(fim-inicio)
+        razao *= 10
 
-print("Impressão de tempo de Busca Sequencial")
-razao = 100
-print("Vetor com 100 elementos")
-testeDesempenhoSequencial(razao)
-razao = 1000
-print("Vetor com 1000 elementos")
-testeDesempenhoSequencial(razao)
-razao = 10000
-print("Vetor com 10000 elementos")
-testeDesempenhoSequencial(razao)
-razao = 100000
-print("Vetor com 100000 elementos")
-testeDesempenhoSequencial(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos")
-testeDesempenhoSequencial(razao)
-razao = 10000000
-print("Vetor com 10000000 elementos")
-testeDesempenhoSequencial(razao)
-razao = 100000000
-print("Vetor com 100000000 elementos")
-testeDesempenhoSequencial(razao)
-
-print("\nImpressão de tempo de Busca Binária")
-razao = 100
-print("Vetor com 100 elementos")
-testeDesempenhoBinario(razao)
-razao = 1000
-print("Vetor com 1000 elementos")
-testeDesempenhoBinario(razao)
-razao = 10000
-print("Vetor com 10000 elementos")
-testeDesempenhoBinario(razao)
-razao = 100000
-print("Vetor com 100000 elementos")
-testeDesempenhoBinario(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos")
-testeDesempenhoBinario(razao)
-razao = 10000000
-print("Vetor com 10000000 elementos")
-testeDesempenhoBinario(razao)
-razao = 100000000
-print("Vetor com 100000000 elementos")
-testeDesempenhoBinario(razao)
+testeDesempenhoSequencial(10)
+testeDesempenhoBinario(10)

@@ -33,4 +33,9 @@ def grafMatrizParaLista(m):
 
 def imprimirMatriz(m):
     for i in range(len(m)):
-        print(m[i])
+        print(i, m[i])
+
+matriz = grafListaParaMatriz(lista)
+imprimirMatriz(matriz)
+novaLista = grafMatrizParaLista(matriz)
+print("\n", novaLista)

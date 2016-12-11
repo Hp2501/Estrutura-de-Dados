@@ -1,29 +1,32 @@
 import datetime
 import sys
-from random import randint
+import multiprocessing
 
 sys.setrecursionlimit(150000)
+
 
 def bolha(v):
     tamVetor = len(v)
     for i in range(1, tamVetor):
         for j in range(0, tamVetor - i):
-            if v[j] > v[j+1]:
+            if v[j] > v[j + 1]:
                 aux = v[j]
-                v[j] = v[j+1]
-                v[j+1] = aux
+                v[j] = v[j + 1]
+                v[j + 1] = aux
     return v
+
 
 def insercao(v):
     tamVetor = len(v)
     for i in range(1, tamVetor):
         elemAtual = v[i]
-        j = i-1
+        j = i - 1
         while j >= 0 and v[j] > elemAtual:
-            v[j+1] = v[j]
-            j = j-1
-        v[j+1] = elemAtual
+            v[j + 1] = v[j]
+            j = j - 1
+        v[j + 1] = elemAtual
         return v
+
 
 def intercala(e, d):
     r = []
@@ -39,6 +42,7 @@ def intercala(e, d):
     r += d[j:]
     return r
 
+
 def ordenacaoMerge(v):
     if len(v) <= 1:
         return v
@@ -47,6 +51,7 @@ def ordenacaoMerge(v):
         e = ordenacaoMerge(v[:m])
         d = ordenacaoMerge(v[m:])
         return intercala(e, d)
+
 
 def ordQuick(vetor):
     if len(vetor) > 1:
@@ -64,6 +69,7 @@ def ordQuick(vetor):
         return ordQuick(menores) + iguais + ordQuick(maiores)
     else:
         return vetor
+
 
 def ordSelecao(v):
     for i in range(len(v)):
@@ -108,152 +114,123 @@ def troca(A, x, y):
     A[x] = A[y]
     A[y] = tmp
 
+
 def testeDesempenhoBolha(razao):
+    print("\n\nImpressão de tempo de Ordenação BubbleSort")
     vetor = []
-    inicio = datetime.datetime.now()
-    for i in range(razao):
-        vetor.append(randint(0, razao))
+    while razao <= 1000000:
+        print("Vetor com %d elementos: " % razao)
+        inicio = datetime.datetime.now()
+        cont = razao
+        for i in range(razao):
+            vetor.append(cont)
+            cont -= 1
         fim = datetime.datetime.now()
-    print("Finalizou a criação da lista em", fim-inicio)
-    inicio = datetime.datetime.now()
-    bolha(vetor)
-    fim = datetime.datetime.now()
-    print(fim-inicio)
+        print("Finalizou a criação da lista em", fim - inicio)
+        inicio = datetime.datetime.now()
+        bolha(vetor)
+        fim = datetime.datetime.now()
+        print(fim - inicio)
+        razao *= 10
+
 
 def testeDesempenhoInsercao(razao):
+    print("\n\nImpressão de tempo de Ordenação InsertionSort")
     vetor = []
-    inicio = datetime.datetime.now()
-    for i in range(razao):
-        vetor.append(randint(0, razao))
+    while razao <= 1000000:
+        print("Vetor com %d elementos: " % razao)
+        cont = razao
+        inicio = datetime.datetime.now()
+        for i in range(razao):
+            vetor.append(cont)
+            cont -= 1
         fim = datetime.datetime.now()
-    print("Finalizou a criação da lista em", fim-inicio)
-    inicio = datetime.datetime.now()
-    insercao(vetor)
-    fim = datetime.datetime.now()
-    print(fim-inicio)
+        print("Finalizou a criação da lista em", fim - inicio)
+        inicio = datetime.datetime.now()
+        insercao(vetor)
+        fim = datetime.datetime.now()
+        print(fim - inicio)
+        razao *= 10
+
 
 def testeDesempenhoMerge(razao):
+    print("\n\nImpressão de tempo de Ordenação MergeSort")
     vetor = []
-    inicio = datetime.datetime.now()
-    for i in range(razao):
-        vetor.append(randint(0, razao))
+    while razao <= 1000000:
+        print("Vetor com %d elementos: " % razao)
+        cont = razao
+        inicio = datetime.datetime.now()
+        for i in range(razao):
+            vetor.append(cont)
+            cont -= 1
         fim = datetime.datetime.now()
-    print("Finalizou a criação da lista em", fim-inicio)
-    inicio = datetime.datetime.now()
-    ordenacaoMerge(vetor)
-    fim = datetime.datetime.now()
-    print(fim-inicio)
+        print("Finalizou a criação da lista em", fim - inicio)
+        inicio = datetime.datetime.now()
+        ordenacaoMerge(vetor)
+        fim = datetime.datetime.now()
+        print(fim - inicio)
+        razao *= 10
+
 
 def testeDesempenhoQuick(razao):
+    print("\n\nImpressão de tempo de Ordenação QuickSort")
     vetor = []
-    inicio = datetime.datetime.now()
-    for i in range(razao):
-        vetor.append(randint(0, razao))
+    while razao <= 1000000:
+        print("Vetor com %d elementos: " % razao)
+        cont = razao
+        inicio = datetime.datetime.now()
+        for i in range(razao):
+            vetor.append(cont)
+            cont -= 1
         fim = datetime.datetime.now()
-    print("Finalizou a criação da lista em", fim-inicio)   
-    inicio = datetime.datetime.now()
-    ordQuick(vetor)
-    fim = datetime.datetime.now()
-    print(fim-inicio)
+        print("Finalizou a criação da lista em", fim - inicio)
+        inicio = datetime.datetime.now()
+        ordQuick(vetor)
+        fim = datetime.datetime.now()
+        print(fim - inicio)
+        razao *= 10
+
 
 def testeDesempenhoHeapsort(razao):
+    print("\n\nImpressão de tempo de Ordenação HeapSort")
     vetor = []
-    inicio = datetime.datetime.now()
-    for i in range(razao):
-        vetor.append(randint(0, razao))
+    while razao <= 1000000:
+        print("Vetor com %d elementos: " % razao)
+        cont = razao
+        inicio = datetime.datetime.now()
+        for i in range(razao):
+            vetor.append(cont)
+            cont -= 1
         fim = datetime.datetime.now()
-    print("Finalizou a criação da lista em", fim-inicio)
-    inicio = datetime.datetime.now()
-    heapsort(vetor)
-    fim = datetime.datetime.now()
-    print(fim - inicio)
+        print("Finalizou a criação da lista em", fim - inicio)
+        inicio = datetime.datetime.now()
+        heapsort(vetor)
+        fim = datetime.datetime.now()
+        print(fim - inicio)
+        razao *= 10
 
-print("Impressão de tempo de Ordenação QuickSort")
 
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoQuick(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoQuick(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoQuick(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoQuick(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoQuick(razao)
+def testeDesempenhoSelectionSort(razao):
+    print("\n\nImpressão de tempo de Ordenação Seleção")
+    vetor = []
+    while razao <= 1000000:
+        print("Vetor com %d elementos: " % razao)
+        inicio = datetime.datetime.now()
+        cont = razao
+        for i in range(razao):
+            vetor.append(cont)
+            cont -= 1
+            fim = datetime.datetime.now()
+        print("Finalizou a criação da lista em", fim - inicio)
+        inicio = datetime.datetime.now()
+        ordSelecao(vetor)
+        fim = datetime.datetime.now()
+        print(fim - inicio)
+        razao *= 10
 
-print("\n\nImpressão de tempo de Ordenação HeapSort")
-
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoHeapsort(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoHeapsort(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoHeapsort(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoHeapsort(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoHeapsort(razao)
-
-print("\n\nImpressão de tempo de Ordenação InsertionSort")
-
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoInsercao(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoInsercao(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoInsercao(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoInsercao(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoInsercao(razao)
-
-print("\n\nImpressão de tempo de Ordenação BubbleSort")
-
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoBolha(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoBolha(razao)
-
-print("\n\nImpressão de tempo de Ordenação MergeSort")
-
-razao = 100
-print("Vetor com 100 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 1000
-print("Vetor com 1000 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 10000
-print("Vetor com 10000 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 100000
-print("Vetor com 100000 elementos: ")
-testeDesempenhoMerge(razao)
-razao = 1000000
-print("Vetor com 1000000 elementos: ")
-testeDesempenhoMerge(razao)
+testeDesempenhoQuick(100)
+testeDesempenhoHeapsort(100)
+testeDesempenhoMerge(100)
+testeDesempenhoInsercao(100)
+testeDesempenhoSelectionSort(100)
+testeDesempenhoBolha(100)
