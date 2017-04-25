@@ -12,7 +12,7 @@ matriz_entrada = [
 
 
 def ler_matriz(matriz: list) -> list:
-    """Função que varre a matriz em busca de ocorrencias iguais"""
+    """Função que varre a matriz"""
     vistos = []
     x = 1
     linhas = len(matriz)
@@ -29,6 +29,9 @@ def ler_matriz(matriz: list) -> list:
 
 
 def ler_parentes(matriz, matriz_saida, linha, coluna, x, posicao, vistos):
+    """Verifica a posição atual de uma matriz e seus adjacentes em busca de ocorrencias
+
+    Retorna as posições de ocorrencias e uma matrix modificada"""
     try:
         if matriz[linha][coluna] != 0:
             if posicao not in vistos:
@@ -73,6 +76,7 @@ def ler_parentes(matriz, matriz_saida, linha, coluna, x, posicao, vistos):
 
 
 def imprimir_matriz(matriz: list):
+    """Imprime uma matriz"""
     linhas = len(matriz)
     colunas = len(matriz[0])
     for linha in range(linhas):
@@ -82,6 +86,7 @@ def imprimir_matriz(matriz: list):
         print()
 
 def main():
+    """Execução principal"""
     print("======Matriz de Entrada======")
     imprimir_matriz(matriz_entrada)
     print("=============================")
